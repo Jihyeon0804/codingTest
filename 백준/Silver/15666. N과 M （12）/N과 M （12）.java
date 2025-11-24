@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        // 자신 포함, 중복X
+        // 자신 포함, 중복X, 순서X
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -24,14 +24,14 @@ public class Main {
         List<Integer> myList = new ArrayList<>(set);
         Collections.sort(myList);
 
-        permu(myList, new ArrayList<>(), m, 0);
+        comb(myList, new ArrayList<>(), m, 0);
 
         bw.flush();
         bw.close();
 
     }
 
-    static void permu(List<Integer> myList, List<Integer> list, int target, int start) throws IOException {
+    static void comb(List<Integer> myList, List<Integer> list, int target, int start) throws IOException {
         if (list.size() == target) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
@@ -44,7 +44,7 @@ public class Main {
         }
         for (int i = start; i < myList.size(); i++) {
             list.add(myList.get(i));
-            permu(myList, list, target, i);
+            comb(myList, list, target, i);
             list.remove(list.size() - 1);
         }
     }
