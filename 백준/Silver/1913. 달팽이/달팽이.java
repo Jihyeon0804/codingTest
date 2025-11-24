@@ -17,12 +17,8 @@ public class Main {
         int[] dy = {0, 1, 0, -1};
 
         int curr = n * n;
-        int x, y, d;
+        int x = 0, y = 0, d = 0;
         int answerX = 0, answerY = 0;
-
-        x = n % 2 == 0 ? n - 1 : 0;
-        y = n % 2 == 0 ? n - 1 : 0;
-        d = n % 2 == 0 ? 2 : 0;
 
         while (curr > 0) {
             if (x >= 0 && y >= 0 && x < n && y < n && arr[x][y] == 0) {
