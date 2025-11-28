@@ -13,7 +13,7 @@ public class Main {
             if (stack.isEmpty() || s.equals("(")) {
                 stack.push(s);
             } else {
-                if (s.equals(")") && stack.peek().equals("(")) {
+                if (stack.peek().equals("(")) {
                     stack.pop();
                 } else {
                     stack.push(s);
