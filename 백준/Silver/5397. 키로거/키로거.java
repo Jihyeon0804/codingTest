@@ -1,15 +1,14 @@
 import java.io.*;
 
 public class Main {
-    static final int MX = 1000005;
-    static int[] pre = new int[MX];
-    static int[] nxt = new int[MX];
-    static char[] dat = new char[MX];
+    static final int MAX = 1000001;
+    static int[] pre = new int[MAX];
+    static int[] post = new int[MAX];
+    static char[] data = new char[MAX];
     static int unused = 1;
     static int cursor = 0;
 
     public static void main(String[] args) throws IOException {
-        
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
@@ -17,22 +16,23 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             String s = br.readLine();
-            run(s);
-            
-            int addr = nxt[0];
-            while (addr != -1) {
-                sb.append(dat[addr]);
-                addr = nxt[addr];
+            getPassword(s);
+
+            int add = post[0];
+            while (add != -1) {
+                sb.append(data[add]);
+                add = post[add];
             }
             sb.append("\n");
         }
         System.out.print(sb);
     }
 
-    static void run(String s) {
+    static void getPassword(String s) {
+        
         unused = 1;
         cursor = 0;
-        nxt[0] = -1; 
+        post[0] = -1;
         pre[0] = -1;
 
         for (int i = 0; i < s.length(); i++) {
@@ -43,8 +43,8 @@ public class Main {
                     cursor = pre[cursor];
                 }
             } else if (c == '>') {
-                if (nxt[cursor] != -1) {
-                    cursor = nxt[cursor];
+                if (post[cursor] != -1) {
+                    cursor = post[cursor];
                 }
             } else if (c == '-') {
                 if (cursor != 0) {
@@ -57,27 +57,27 @@ public class Main {
     }
 
     static void insert(char c) {
-        dat[unused] = c;
+        data[unused] = c;
         pre[unused] = cursor;
-        nxt[unused] = nxt[cursor];
+        post[unused] = post[cursor];
 
-        if (nxt[cursor] != -1) {
-            pre[nxt[cursor]] = unused;
+        if (post[cursor] != -1) {
+            pre[post[cursor]] = unused;
         }
 
-        nxt[cursor] = unused;
+        post[cursor] = unused;
 
         cursor = unused;
         unused++;
     }
-
+    
     static void erase() {
-        if (nxt[cursor] != -1) {
-            pre[nxt[cursor]] = pre[cursor];
+        if (post[cursor] != -1) {
+            pre[post[cursor]] = pre[cursor];
         }
         
-        nxt[pre[cursor]] = nxt[cursor];
-        
+        post[pre[cursor]] = post[cursor];
+
         cursor = pre[cursor];
     }
 }
