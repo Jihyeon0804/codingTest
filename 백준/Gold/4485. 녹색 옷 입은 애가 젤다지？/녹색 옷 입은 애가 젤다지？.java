@@ -33,7 +33,7 @@ public class Main {
                 dist[0][0] = map[0][0];
 
                 // 최단 경로 로직
-                PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
+                PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o[2]));
                 pq.offer(new int[]{0, 0, dist[0][0]});
 
                 while (!pq.isEmpty()) {
