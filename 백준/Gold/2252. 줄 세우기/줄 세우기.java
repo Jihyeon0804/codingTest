@@ -71,8 +71,12 @@ public class Main {
             return;
         }
 
+        StringBuilder sb = new StringBuilder();
+        
         for (int node : result) {
-            System.out.print(node + " ");
+            sb.append(node).append(" ");
         }
+
+        System.out.println(sb);
     }
 }
