@@ -7,6 +7,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine());
 
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < t; i++) {
             String[] arr = br.readLine().split(" ");
             int n = Integer.parseInt(arr[0]);
@@ -26,29 +28,26 @@ public class Main {
             }
 
             int[] inDegree = new int[n + 1];
-            int[][] edges = new int [k][2];
 
             for (int j = 0; j < k; j++) {
-                String[] arr2 = br.readLine().split(" ");
-                edges[j][0] = Integer.parseInt(arr2[0]);
-                edges[j][1] = Integer.parseInt(arr2[1]);
-            }
+                st = new StringTokenizer(br.readLine());
+                int from = Integer.parseInt(st.nextToken());
+                int to = Integer.parseInt(st.nextToken());
 
-            for (int[] edge : edges) {
-                int from = edge[0];
-                int to = edge[1];
                 graph.get(from).add(to);
                 inDegree[to]++;
             }
 
             int w = Integer.parseInt(br.readLine());
 
-            topologicalSort(n, graph, inDegree, buildTime, w);
+            sb.append(topologicalSort(n, graph, inDegree, buildTime, w)).append("\n");
         }
+
+        System.out.print(sb);
 
     }
 
-    public static void topologicalSort(int v, List<List<Integer>> graph, int[] inDegree, int[] buildTime, int w) {
+    public static int topologicalSort(int v, List<List<Integer>> graph, int[] inDegree, int[] buildTime, int w) {
         List<Integer> result = new ArrayList<>();
         Queue<Integer> queue = new LinkedList<>();
         int[] resultTime = new int[v + 1];
@@ -63,7 +62,10 @@ public class Main {
 
         while (!queue.isEmpty()) {
             int curr = queue.poll();
-            result.add(curr);
+
+            if (curr == w) {
+                return resultTime[w];
+            }
 
             for (int next : graph.get(curr)) {
                 resultTime[next] = Math.max(resultTime[next], resultTime[curr] + buildTime[next]);
@@ -75,7 +77,7 @@ public class Main {
             }
         }
 
-        System.out.println(resultTime[w]);
+        return resultTime[w];
 
     }
 }
