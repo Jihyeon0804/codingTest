@@ -44,7 +44,7 @@ public class Main {
             int curr = queue.poll();
 
             for (int next : graph.get(curr)) {
-                resultTime[next] = Math.max(resultTime[curr], resultTime[curr] + inDegree[next]);
+                resultTime[next] = Math.max(resultTime[next], resultTime[curr] + 1);
                 inDegree[next]--;
 
                 if (inDegree[next] == 0) {
