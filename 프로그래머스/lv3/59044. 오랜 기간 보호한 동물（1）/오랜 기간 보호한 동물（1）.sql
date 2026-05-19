@@ -1,0 +1,8 @@
+SELECT `NAME`, `DATETIME`
+FROM `ANIMAL_INS`
+WHERE (`ANIMAL_ID`, `NAME`) NOT IN (SELECT A.ANIMAL_ID, A.NAME
+                          FROM `ANIMAL_INS` AS A
+                          INNER JOIN `ANIMAL_OUTS` AS B
+                          ON A.ANIMAL_ID = B.ANIMAL_ID)
+ORDER BY `DATETIME`
+LIMIT 3
